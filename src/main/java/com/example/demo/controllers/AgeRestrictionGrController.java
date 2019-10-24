@@ -55,8 +55,9 @@ public class AgeRestrictionGrController {
 		
 		//Persistance de l'objet Age qui correspond a l'entite Age
 		this.ageRestrictionService.addAge(restrictionAge.getAgeAttribute());
-		
 		RestrictionAge CurrentageRestrictionGroupe = this.ageRestrictionService.add(restrictionAge);		
+		logger.info("Création du groupe de restriction d'age avec l'id : {}",restrictionAge.getId());
+
 		return new ResponseEntity(CurrentageRestrictionGroupe,HttpStatus.CREATED);
 		
 	}
@@ -76,9 +77,11 @@ public class AgeRestrictionGrController {
 			logger.error("le groupe de restriction d'age avec cet ID "+CurrentRestrictionAge.getId()+" n'existe pas !");
 			return new ResponseEntity(new CustomError("le groupe de restriction d'age avec cet ID "+CurrentRestrictionAge.getId()+" n'existe pas !"), HttpStatus.NOT_FOUND);
 		}
-		else
+		else {
+			logger.info("Récupértion du groupe de restriction d'age avec l'id : {}",CurrentRestrictionAge.getId());
 			return new ResponseEntity(this.ageRestrictionService.getAgeRestrictionGroupe(CurrentRestrictionAge), HttpStatus.ACCEPTED);
-		
+
+		}
 	}
 	
 	// --------------------------------------------------- update a RestrictionAgeGroupe -------------------------------------------
@@ -106,10 +109,11 @@ public class AgeRestrictionGrController {
 		//Persistance de l'objet Age qui correspond a l'entite Age
 		this.ageRestrictionService.addAge(restrictionAge.getAgeAttribute());			
 		RestrictionAge CurrentageRestrictionGroupe = this.ageRestrictionService.add(restrictionAge);		
+		logger.info("Mise à jour du groupe de restriction d'age avec l'id : {}",restrictionAge.getId());
+
 		return new ResponseEntity(CurrentageRestrictionGroupe,HttpStatus.CREATED);
 		
 	}
-
 
 }
 

@@ -39,7 +39,6 @@ public class PriceServiceImpl implements PriceService{
 	
 	@Override
 	public boolean existPrice(Price prix) {
-		System.out.println(prix.getProductID());
 		if(prix.getProductID().equals(null))
 			return false;
 		

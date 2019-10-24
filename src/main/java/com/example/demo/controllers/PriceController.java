@@ -39,13 +39,15 @@ public class PriceController {
 	// --------------------------------------------- Get Price -----------------------------------------------------------
 	 @RequestMapping(value="/get-price/{product_ID}",method = RequestMethod.GET)
 	 public ResponseEntity<Price> getPrice(@PathVariable("product_ID") String product_ID){
-		logger.info("Retrait du prix correspondant au produit : ",product_ID);
+		logger.info("Retrait du prix correspondant au produit : {}",product_ID);
 		Price prix = new Price();
 		prix.setProductID(product_ID);
 		if(!this.PriceService.existPrice(prix)) {
 			logger.error("Le produit correspondant n'existe pas");
 			return new ResponseEntity(new CustomError("Le produit correspondant n'existe pas"), HttpStatus.NOT_FOUND);
 		}
+		
+		logger.info("Récupération du prix correspondant au produit avec l'id : {}",product_ID);
 		 return new ResponseEntity<Price>(this.PriceService.getPrice(prix), HttpStatus.OK); 
 	 }
 	 
@@ -82,12 +84,14 @@ public class PriceController {
 		
 		
 		 Price CurrentPrice = this.PriceService.addPrice(prix);
+		 logger.info("Création du prix correspondant au produit avec l'id : {}",prix.getProductID());
+
 		 return new ResponseEntity<Price>(CurrentPrice, HttpStatus.CREATED);
 		 
 	 }
 
 	 // --------------------------------------------------- Update a price -------------------------------------------
-	 @RequestMapping(value="/{productID}/update-price",method=RequestMethod.PUT)
+	 @RequestMapping(value="/{productID}/update-price", method=RequestMethod.PUT)
 	 public ResponseEntity <Price> updatePrice(@RequestBody Price prix, @PathVariable("productID") String productID){
 		
 		 if(!prix.getProductID().equals(productID)) {
@@ -118,6 +122,7 @@ public class PriceController {
 		 priceToUpdate.setUnit(prix.getUnit());
 		 
 		 Price CurrentPrice = this.PriceService.addPrice(priceToUpdate);
+		 logger.info("Mise à jour du prix correspondant au produit avec l'id : {}, {} {}",prix.getProductID(),prix.getPrix(),prix.getUnit());
 		 return new ResponseEntity<Price>(CurrentPrice, HttpStatus.OK);
 		 
 	 }
