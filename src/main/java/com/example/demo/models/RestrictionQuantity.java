@@ -11,6 +11,8 @@ public class RestrictionQuantity {
 	@Id
 	private String id;
 	private String libelle;
+	private Quantity quantityAttributes;
+	
 	public String getId() {
 		return id;
 	}
@@ -23,6 +25,15 @@ public class RestrictionQuantity {
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
+	public Quantity getQuantityAttributes() {
+		return quantityAttributes;
+	}
+	public void setQuantityAttributes(Quantity quantityAttributes) {
+		this.quantityAttributes = quantityAttributes;
+	} 
+	
+	
+	
 	
 	
 	
