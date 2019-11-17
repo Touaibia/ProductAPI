@@ -1,11 +1,15 @@
 package com.example.demo.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
 import com.example.demo.models.Category;
 
 public interface CategoryRepo extends JpaRepository<Category, String> {
+
+	Optional<Category> findByCategoryId(String categoryId);
 
 	
 }

@@ -14,8 +14,7 @@ import javax.persistence.OneToOne;
 public class Category {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private String iD;
+	private String categoryId;
 	
 	private String libelle;
 	private Date dateDebut;
@@ -25,11 +24,25 @@ public class Category {
 	private Category categoryParent;
 	
 	private ArrayList<Category> categoryFils;
-	private ArrayList<ProductPropositionInformations> listProduct;
+	private ArrayList<Product> listProduct;
 	
 	public Category() {
 		
 	}
+	
+	
+
+	public String getCategoryId() {
+		return categoryId;
+	}
+
+
+
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+	}
+
+
 
 	public String getLibelle() {
 		return libelle;
@@ -71,11 +84,11 @@ public class Category {
 		categoryFils = categoryFils;
 	}
 
-	public ArrayList<ProductPropositionInformations> getListProduct() {
+	public ArrayList<Product> getListProduct() {
 		return listProduct;
 	}
 
-	public void setListProduct(ArrayList<ProductPropositionInformations> listProduct) {
+	public void setListProduct(ArrayList<Product> listProduct) {
 		listProduct = listProduct;
 	}
 	

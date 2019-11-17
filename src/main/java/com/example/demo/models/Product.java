@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class ProductPropositionInformations implements Serializable{
+public class Product implements Serializable{
 	
 	@Id
 	private String id;
@@ -32,7 +32,7 @@ public class ProductPropositionInformations implements Serializable{
 	private RestrictionQuantity RestrictionAuantity;
 	
 	
-	public ProductPropositionInformations() {
+	public Product() {
 		
 	}
 	
