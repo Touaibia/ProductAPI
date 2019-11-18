@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+﻿package com.example.demo.controllers;
 
 import java.util.Optional;
 
@@ -99,7 +99,7 @@ public class QuantityRestrictionGrController {
 		
 		if(!this.quantityRestrictionService.uniteIsOk(restrictionQuantity.getQuantityAttributes())) {
 			logger.error("L'unité de la Quantité n'est pas valide");
-			return new ResponseEntity(new CustomError("L'unité de la quantité n'est pas valide"), HttpStatus.CONFLICT);
+			return new ResponseEntity(new CustomError("L'unité de la quantité n'est pas valide !"), HttpStatus.CONFLICT);
 
 		}
 		
@@ -112,7 +112,6 @@ public class QuantityRestrictionGrController {
 		RestrictionQuantity CurrentquantityRestrictionGroupe = this.quantityRestrictionService.updateQuantityRestrictionGroupe(currentRestrictionQuantity);		
 		
 		return new ResponseEntity(CurrentquantityRestrictionGroupe,HttpStatus.CREATED);
-		
 	}
 
 
