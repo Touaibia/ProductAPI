@@ -1,5 +1,7 @@
 package com.example.demo.controllers;
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +22,8 @@ public class CategoryController {
 
 	@Autowired
 	private CategoryService categoryService;
-	public static final Logger logger = LoggerFactory.getLogger(QuantityRestrictionGrController.class);
+	public static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
 	
-	public boolean productsChildrentValidity = true;
-	public String productsChildrentError ="";
-
-	public boolean categoriesChildrentValidity = true;
-	public String categoriesChildrentError ="";
-	
-	public boolean datesValidity = true;
-	public String datesError = "";
 	
 	// --------------------------------------------------- Create Category ------------------------------------------------------
 	@RequestMapping(value="/{CategoryId}/create-category", method=RequestMethod.POST)
@@ -50,39 +44,53 @@ public class CategoryController {
 			return new ResponseEntity(new CustomError("Cette Category : "+category.getCategoryId()+" doit avoir un Libellé différent de null"), HttpStatus.CONFLICT);	
 	   }
 	   
-	  //ToDo
-	   datesValidity = this.categoryService.IsValidDates(datesValidity,datesError, category.getDateDebut(), category.getDateFin());
-	   if(!datesValidity) {
-		    logger.error(datesError);
-			return new ResponseEntity(new CustomError(datesError), HttpStatus.CONFLICT);
+	  
+	   CustomError checkDatesValidity = new CustomError();	   
+	   checkDatesValidity = this.categoryService.IsValidDates(checkDatesValidity,category.getDateDebut(), category.getDateFin());
+	   if(!checkDatesValidity.isError()) {
+		    logger.error(checkDatesValidity.getErrorMessage());
+			return new ResponseEntity(new CustomError(checkDatesValidity.getErrorMessage()), HttpStatus.CONFLICT);
 	   }
 	   
-	   //ToDo
-	   productsChildrentValidity = this.categoryService.checkProductsChildrensValidity(productsChildrentValidity,productsChildrentError, category.getListProduct() );
-	   if(!productsChildrentValidity) {
-		    logger.error("Cette Category {} contient un/de(s) produit(s) inexistant(s) ",category.getCategoryId());
-			return new ResponseEntity(new CustomError(productsChildrentError), HttpStatus.CONFLICT);
+      //en test
+	   if(!category.getCategoryFils().isEmpty()) {
+		   CustomError checkChildrenCategoriesValidity = new CustomError();	
+		   checkChildrenCategoriesValidity = this.categoryService.checkCategoriesChildrensValidity(checkChildrenCategoriesValidity,category.getCategoryFils(),category);
+		   if(!checkChildrenCategoriesValidity.isError()) {
+			    logger.error(checkChildrenCategoriesValidity.getErrorMessage());
+				return new ResponseEntity(new CustomError(checkChildrenCategoriesValidity.getErrorMessage()), HttpStatus.CONFLICT);
+		   } 
+		 
 	   }
+	  
+	   /*  //ToDo
+	   if(!category.getListProduct().isEmpty()) {
+		   CustomError checkChildrensValidity = new CustomError();	 
+		   checkChildrensValidity = this.categoryService.checkProductsChildrensValidity(checkChildrensValidity,category.getListProduct(), );
+		   if(!checkChildrensValidity.isError()) {
+			    logger.error(checkChildrensValidity.getErrorMessage());
+				return new ResponseEntity(new CustomError(checkChildrensValidity.getErrorMessage()), HttpStatus.CONFLICT);
+		   } 
+	   }  
+	   */  
+	 
 	   
-	  //ToDo
-	   categoriesChildrentValidity = this.categoryService.checkCategoriesChildrensValidity(categoriesChildrentValidity,categoriesChildrentError,category.getCategoryFils());
-	   if(!categoriesChildrentValidity) {
-		    logger.error("Cette Category {} contient un/des categorie(s) inexistante(s) ",category.getCategoryId());
-			return new ResponseEntity(new CustomError(categoriesChildrentError), HttpStatus.CONFLICT);
-	   } 
-	   
-	   //Todo
-	   if(!this.categoryService.parentCategoryValid(category.getCategoryParent())) {
-		   logger.error("La Category Parent pour cette categoré {} n'est pas valide ",category.getCategoryId());
-			return new ResponseEntity(new CustomError("La Category Parent pour cette categoré : "+category.getCategoryId()+" n'est pas valide"), HttpStatus.CONFLICT);
-	   
+	   /* //Todo
+	   if(category.getCategoryParent() != null) {
+		   if(!this.categoryService.parentCategoryValid(category.getCategoryParent())) {
+			   logger.error("La Category Parent pour cette categoré {} n'est pas valide ",category.getCategoryId());
+				return new ResponseEntity(new CustomError("La Category Parent pour cette categoré : "+category.getCategoryId()+" n'est pas valide"), HttpStatus.CONFLICT);
+		   
+		   }
 	   }
-			   
+	  
+	      */
+   
 	   logger.error("Création de la categorie : {}  ",category.getCategoryId());
 	  //Todo
 	   Category newCategory = this.categoryService.createCategory(category);
 	   
 	   return new ResponseEntity(newCategory, HttpStatus.CREATED);
-	}
+		}
 
 }

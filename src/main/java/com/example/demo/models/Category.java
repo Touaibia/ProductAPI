@@ -17,8 +17,8 @@ public class Category {
 	private String categoryId;
 	
 	private String libelle;
-	private Date dateDebut;
-	private Date dateFin;
+	private String dateDebut;
+	private String dateFin;
 	
 	@OneToOne
 	private Category categoryParent;
@@ -33,7 +33,7 @@ public class Category {
 	
 
 	public String getCategoryId() {
-		return categoryId;
+		return this.categoryId;
 	}
 
 
@@ -45,51 +45,51 @@ public class Category {
 
 
 	public String getLibelle() {
-		return libelle;
+		return this.libelle;
 	}
 
 	public void setLibelle(String libelle) {
-		libelle = libelle;
+		this.libelle = libelle;
 	}
 
-	public Date getDateDebut() {
-		return dateDebut;
+	public String getDateDebut() {
+		return this.dateDebut;
 	}
 
-	public void setDateDebut(Date dateDebut) {
-		dateDebut = dateDebut;
+	public void setDateDebut(String dateDebut) {
+		this.dateDebut = dateDebut;
 	}
 
-	public Date getDateFin() {
-		return dateFin;
+	public String getDateFin() {
+		return this.dateFin;
 	}
 
-	public void setDateFin(Date dateFin) {
-		dateFin = dateFin;
+	public void setDateFin(String dateFin) {
+		this.dateFin = dateFin;
 	}
 
 	public Category getCategoryParent() {
-		return categoryParent;
+		return this.categoryParent;
 	}
 
 	public void setCategoryParent(Category categoryParent) {
-		categoryParent = categoryParent;
+		this.categoryParent = categoryParent;
 	}
 
 	public ArrayList<Category> getCategoryFils() {
-		return categoryFils;
+		return this.categoryFils;
 	}
 
 	public void setCategoryFils(ArrayList<Category> categoryFils) {
-		categoryFils = categoryFils;
+		this.categoryFils = categoryFils;
 	}
 
 	public ArrayList<Product> getListProduct() {
-		return listProduct;
+		return this.listProduct;
 	}
 
 	public void setListProduct(ArrayList<Product> listProduct) {
-		listProduct = listProduct;
+		this.listProduct = listProduct;
 	}
 	
 	

@@ -20,6 +20,7 @@ import com.example.demo.services.RestrictionQuantityService;
 import com.example.demo.util.CustomError;
 
 @RestController
+@RequestMapping("/quantity-restriction-api")
 public class QuantityRestrictionGrController {
 
 	@Autowired
@@ -53,7 +54,7 @@ public class QuantityRestrictionGrController {
 		}
 		
 		//Persistance de l'objet Quantity qui correspond a l'entite Quantity
-		this.quantityRestrictionService.addQuantity(restrictionQuantity.getQuantityAttributes());
+		//this.quantityRestrictionService.addQuantity(restrictionQuantity.getQuantityAttributes());
 		
 		logger.info("Création du groupe de restriction de quantity avec l'id : {}",restrictionQuantity.getId());
 		RestrictionQuantity CurrentquantityRestrictionGroupe = this.quantityRestrictionService.createQuantityRestrictionGroupe(restrictionQuantity);		

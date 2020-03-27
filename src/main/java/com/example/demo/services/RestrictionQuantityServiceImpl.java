@@ -19,9 +19,9 @@ public class RestrictionQuantityServiceImpl implements RestrictionQuantityServic
 	public QuantityRepo quantityRepo;
 	
 	private ArrayList<String> quantityUnits = new ArrayList<>();
-	private final String KG = "kg";
-	private final String G = "g";
-	private final String L = "l";
+	private final String KG = "KG";
+	private final String G = "G";
+	private final String L = "L";
 	
 
 	@Autowired
@@ -53,7 +53,8 @@ public class RestrictionQuantityServiceImpl implements RestrictionQuantityServic
 	@Override
 	public boolean existQuantityRestrictionGR(RestrictionQuantity restrictionQuantity) {
 		if(!restrictionQuantity.getId().isEmpty()) {
-			Optional<RestrictionQuantity> quantityRescGr = quantityRestrectionRepo.findById(restrictionQuantity.getId());
+			Optional<Optional<RestrictionQuantity>> quantityRescGr = Optional.ofNullable(quantityRestrectionRepo.findById(restrictionQuantity.getId()));
+			System.out.println(" le groupe a chercher est : "+quantityRescGr);
 			if(quantityRescGr.isPresent())
 				return true;
 		}
@@ -68,9 +69,13 @@ public class RestrictionQuantityServiceImpl implements RestrictionQuantityServic
 	}
 
 	public void addQuantity(Quantity quantityAttributes) {
-		 Optional<Quantity> quantityTofind = this.quantityRepo.findByValueAndUnite(quantityAttributes.getValue(),quantityAttributes.getUnite());
-		 if(!quantityTofind.isPresent())
-			 quantityRepo.save(quantityTofind.get());			 
+		 Optional<Optional<Quantity>> quantityTofind = Optional.ofNullable(this.quantityRepo.findByValueAndUnite(quantityAttributes.getValue(),quantityAttributes.getUnite()));
+		 System.out.println("product to save is 1 : "+quantityTofind.get());
+
+		 if(!quantityTofind.get().isPresent()) {
+			 quantityRepo.save(quantityAttributes);	
+		 }
+					 
 	}
 	
 

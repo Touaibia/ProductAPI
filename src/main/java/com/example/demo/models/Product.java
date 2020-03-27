@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Product implements Serializable{
+public class Product{
 	
 	@Id
 	private String id;
@@ -37,6 +37,16 @@ public class Product implements Serializable{
 	}
 	
 	
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
 	public String getLibelle() {
 		return libelle;
 	}

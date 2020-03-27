@@ -20,7 +20,7 @@ import com.example.demo.util.CustomError;
 
 
 @RestController
-@RequestMapping("/agerestriction-api")
+@RequestMapping("/age-restriction-api")
 public class AgeRestrictionGrController {
 
 	@Autowired

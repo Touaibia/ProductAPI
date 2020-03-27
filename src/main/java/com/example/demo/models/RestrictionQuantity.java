@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class RestrictionQuantity {
@@ -11,6 +12,8 @@ public class RestrictionQuantity {
 	@Id
 	private String id;
 	private String libelle;
+	
+	@OneToOne
 	private Quantity quantityAttributes;
 	
 	public String getId() {
